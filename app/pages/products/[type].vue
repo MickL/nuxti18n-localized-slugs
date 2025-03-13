@@ -15,7 +15,10 @@ const { t, locale: currentLocale, locales: availableLocales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 // 1. For fetching data: Localized slug -> Enum
-const productType = localizedSlugToValue<ProductType>('product-type', productTypeSlug);
+const productType = localizedSlugToValue<ProductType>(
+  'product-type',
+  productTypeSlug,
+);
 
 if (!productType) {
   throw createError({
@@ -26,11 +29,15 @@ if (!productType) {
 }
 
 // 2. For Changing language: Set localized slug for each language in setI18nParams()
-const slugsForAllLocales = enumToLocalizedSlugsForAllLocales('product-type', productType)!;
+const slugsForAllLocales = valueToLocalizedSlugsForAllLocales(
+  'product-type',
+  productType,
+)!;
 const params = Object.fromEntries(
-  Object.entries(slugsForAllLocales).map(
-    ([locale, productTypeSlug]) => [locale, { type: productTypeSlug }],
-  ),
+  Object.entries(slugsForAllLocales).map(([locale, productTypeSlug]) => [
+    locale,
+    { type: productTypeSlug },
+  ]),
 );
 const setI18nParams = useSetI18nParams();
 setI18nParams(params);
@@ -66,7 +73,9 @@ setI18nParams(params);
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug('product-type', ProductType.Pant) },
+              params: {
+                type: valueToLocalizedSlug('product-type', ProductType.Pant),
+              },
             }"
             class="hover:underline"
           >
@@ -77,7 +86,9 @@ setI18nParams(params);
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug('product-type', ProductType.Shoes) },
+              params: {
+                type: valueToLocalizedSlug('product-type', ProductType.Shoes),
+              },
             }"
             class="hover:underline"
           >
@@ -88,7 +99,9 @@ setI18nParams(params);
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug('product-type', ProductType.Shirt) },
+              params: {
+                type: valueToLocalizedSlug('product-type', ProductType.Shirt),
+              },
             }"
             class="hover:underline"
           >

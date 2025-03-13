@@ -1,6 +1,9 @@
 import { slugs } from '~~/i18n/slugs';
 
-export const enumToLocalizedSlug = (slugKey: string, value: any): string | undefined => {
+export const valueToLocalizedSlug = (
+  slugKey: string,
+  value: any,
+): string | undefined => {
   const { locale } = useI18n();
 
   if (!slugs[slugKey]) {

@@ -1,7 +1,7 @@
 import { slugs } from '~~/i18n/slugs';
 import type { Locale } from '~~/i18n/available-locale';
 
-export const enumToLocalizedSlugsForAllLocales = (
+export const valueToLocalizedSlugsForAllLocales = (
   slugKey: string,
   value: any,
 ): Record<Locale, string> | undefined => {
