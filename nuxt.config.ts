@@ -14,22 +14,17 @@ export default defineNuxtConfig({
     locales: [
       {
         code: 'en',
-        file: './en.ts'
+        file: './en.ts',
       },
       {
         code: 'de',
-        file: './de.ts'
+        file: './de.ts',
       },
       {
         code: 'fr',
-        file: './fr.ts'
+        file: './fr.ts',
       },
     ],
-  },
-  routeRules: {
-    '/': {
-      redirect: '/en/products/shoes',
-    },
   },
   css: ['~/assets/css/main.css'],
   vite: {

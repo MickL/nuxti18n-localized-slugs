@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { ProductType } from '~/enums/product-type';
+import { AnimalType } from '~/enums/animal-type';
 
 defineI18nRoute({
   paths: {
-    de: '/produkte/[type]',
-    en: '/products/[type]/',
-    fr: '/produits/[type]/',
+    de: '/tiere/[type]',
+    en: '/animals/[type]/',
+    fr: '/animaux/[type]/',
   },
 });
 
-const productTypeSlug = useRoute().params['type'] as string;
+const animalTypeSlug = useRoute().params['type'] as string;
 
 const { t, locale: currentLocale, locales: availableLocales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 // 1. For fetching data: Localized slug -> Enum
-const productType = localizedSlugToEnum(productTypeSlug);
+const animalType = localizedSlugToEnum(animalTypeSlug);
 
-if (!productType) {
+if (!animalType) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
@@ -27,8 +27,8 @@ if (!productType) {
 
 // 2. For Changing language: Set localized slug for each language in setI18nParams()
 const params = Object.fromEntries(
-  Object.entries(enumToLocalizedSlugsForAllLocales(productType)).map(
-    ([locale, productTypeSlug]) => [locale, { type: productTypeSlug }],
+  Object.entries(enumToLocalizedSlugsForAllLocales(animalType)).map(
+    ([locale, animalTypeSlug]) => [locale, { type: animalTypeSlug }],
   ),
 );
 const setI18nParams = useSetI18nParams();
@@ -42,8 +42,8 @@ setI18nParams(params);
     <div class="font-medium mb-0.5">Route data</div>
     <div class="pl-2 space-y-0.5">
       <div>Locale: {{ currentLocale }}</div>
-      <div>Slug: {{ productTypeSlug }}</div>
-      <div>Value: {{ productType }}</div>
+      <div>Slug: {{ animalTypeSlug }}</div>
+      <div>Value: {{ animalType }}</div>
     </div>
 
     <div class="font-medium mb-0.5">Switch locale path:</div>
@@ -58,40 +58,29 @@ setI18nParams(params);
       </ul>
     </div>
 
-    <div class="font-medium mb-1">Explicit links:</div>
+    <div class="font-medium mb-0.5">Explicit links:</div>
     <div class="pl-2">
       <ul class="list-disc list-inside space-y-1">
         <li>
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Pant) },
+              params: { type: enumToLocalizedSlug(AnimalType.Cat) },
             }"
             class="hover:underline"
           >
-            {{ t(`product.type.${ProductType.Pant}`, 2) }}
+            {{ t(`product.type.${AnimalType.Cat}`, 2) }}
           </NuxtLinkLocale>
         </li>
         <li>
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Shoes) },
+              params: { type: enumToLocalizedSlug(AnimalType.Dog) },
             }"
             class="hover:underline"
           >
-            {{ t(`product.type.${ProductType.Shoes}`, 2) }}
-          </NuxtLinkLocale>
-        </li>
-        <li>
-          <NuxtLinkLocale
-            :to="{
-              name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Shirt) },
-            }"
-            class="hover:underline"
-          >
-            {{ t(`product.type.${ProductType.Shirt}`, 2) }}
+            {{ t(`product.type.${AnimalType.Dog}`, 2) }}
           </NuxtLinkLocale>
         </li>
       </ul>
