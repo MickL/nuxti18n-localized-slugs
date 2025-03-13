@@ -1,9 +1,12 @@
-import type { ProductType } from '~/enums/product-type';
 import { slugs } from '~~/i18n/slugs';
-import type { Locale } from '~~/i18n/available-locale';
 
-export const enumToLocalizedSlug = (value: ProductType): string => {
+export const enumToLocalizedSlug = (slugKey: string, value: any): string | undefined => {
   const { locale } = useI18n();
 
-  return slugs[locale.value][value];
+  if (!slugs[slugKey]) {
+    console.warn(`Slug-key '${slugKey}' does not exist`);
+    return;
+  }
+
+  return slugs[slugKey][locale.value][value];
 };

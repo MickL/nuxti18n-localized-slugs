@@ -15,7 +15,7 @@ const { t, locale: currentLocale, locales: availableLocales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 // 1. For fetching data: Localized slug -> Enum
-const productType = localizedSlugToEnum(productTypeSlug);
+const productType = localizedSlugToValue<ProductType>('product-type', productTypeSlug);
 
 if (!productType) {
   throw createError({
@@ -26,8 +26,9 @@ if (!productType) {
 }
 
 // 2. For Changing language: Set localized slug for each language in setI18nParams()
+const slugsForAllLocales = enumToLocalizedSlugsForAllLocales('product-type', productType)!;
 const params = Object.fromEntries(
-  Object.entries(enumToLocalizedSlugsForAllLocales(productType)).map(
+  Object.entries(slugsForAllLocales).map(
     ([locale, productTypeSlug]) => [locale, { type: productTypeSlug }],
   ),
 );
@@ -65,7 +66,7 @@ setI18nParams(params);
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Pant) },
+              params: { type: enumToLocalizedSlug('product-type', ProductType.Pant) },
             }"
             class="hover:underline"
           >
@@ -76,7 +77,7 @@ setI18nParams(params);
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Shoes) },
+              params: { type: enumToLocalizedSlug('product-type', ProductType.Shoes) },
             }"
             class="hover:underline"
           >
@@ -87,7 +88,7 @@ setI18nParams(params);
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Shirt) },
+              params: { type: enumToLocalizedSlug('product-type', ProductType.Shirt) },
             }"
             class="hover:underline"
           >

@@ -15,7 +15,7 @@ const { t, locale: currentLocale, locales: availableLocales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 // 1. For fetching data: Localized slug -> Enum
-const animalType = localizedSlugToEnum(animalTypeSlug);
+const animalType = localizedSlugToValue<AnimalType>('animal-type', animalTypeSlug);
 
 if (!animalType) {
   throw createError({
@@ -26,8 +26,9 @@ if (!animalType) {
 }
 
 // 2. For Changing language: Set localized slug for each language in setI18nParams()
+const slugsForAllLocales = enumToLocalizedSlugsForAllLocales('animal-type', animalType)!;
 const params = Object.fromEntries(
-  Object.entries(enumToLocalizedSlugsForAllLocales(animalType)).map(
+  Object.entries(slugsForAllLocales).map(
     ([locale, animalTypeSlug]) => [locale, { type: animalTypeSlug }],
   ),
 );
@@ -64,23 +65,23 @@ setI18nParams(params);
         <li>
           <NuxtLinkLocale
             :to="{
-              name: 'products-type',
-              params: { type: enumToLocalizedSlug(AnimalType.Cat) },
+              name: 'animals-type',
+              params: { type: enumToLocalizedSlug('animal-type', AnimalType.Cat) },
             }"
             class="hover:underline"
           >
-            {{ t(`product.type.${AnimalType.Cat}`, 2) }}
+            {{ t(`animal.type.${AnimalType.Cat}`, 2) }}
           </NuxtLinkLocale>
         </li>
         <li>
           <NuxtLinkLocale
             :to="{
-              name: 'products-type',
-              params: { type: enumToLocalizedSlug(AnimalType.Dog) },
+              name: 'animals-type',
+              params: { type: enumToLocalizedSlug('animal-type', AnimalType.Dog) },
             }"
             class="hover:underline"
           >
-            {{ t(`product.type.${AnimalType.Dog}`, 2) }}
+            {{ t(`animal.type.${AnimalType.Dog}`, 2) }}
           </NuxtLinkLocale>
         </li>
       </ul>

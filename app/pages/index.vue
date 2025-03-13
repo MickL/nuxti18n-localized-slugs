@@ -16,7 +16,7 @@ const switchLocalePath = useSwitchLocalePath();
           <NuxtLinkLocale
             :to="{
               name: 'products-type',
-              params: { type: enumToLocalizedSlug(ProductType.Shoes) },
+              params: { type: enumToLocalizedSlug('product-type', ProductType.Shoes) },
             }"
             class="hover:underline"
           >
@@ -27,7 +27,7 @@ const switchLocalePath = useSwitchLocalePath();
           <NuxtLinkLocale
             :to="{
               name: 'animals-type',
-              params: { type: enumToLocalizedSlug(AnimalType.Cat) },
+              params: { type: enumToLocalizedSlug('animal-type', AnimalType.Cat) },
             }"
             class="hover:underline"
           >
