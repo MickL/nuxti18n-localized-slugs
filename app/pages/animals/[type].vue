@@ -46,7 +46,7 @@ setI18nParams(params);
       <div>Value: {{ animalType }}</div>
     </div>
 
-    <div class="font-medium mb-0.5">Switch locale path:</div>
+    <div class="font-medium mb-0.5">Switch locale:</div>
     <div class="pl-2">
       <ul class="list-disc list-inside space-y-1">
         <li v-for="locale in availableLocales" :key="locale.code">
